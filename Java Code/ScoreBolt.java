@@ -62,16 +62,12 @@ public class ScoreBolt extends BaseRichBolt {
     }
     
     private void publishTweetList() {
-    	//Set up for logger output
     	long now = System.currentTimeMillis();
         long logPeriodSec = (now - lastLogTime) / 1000;
         if (logPeriodSec > logIntervalSec) {
-        	//creating the positive and negative score
         	double posTweetScore = posTweets / tweetsAnalysed * 100;
             double negTweetScore = negTweets / tweetsAnalysed * 100;
-            
-            //final output, with String.format formatting doubles
-            //to make them more presentable            
+                 
             logger.info("\n");
             logger.info("COVID-19 Related Tweets Analysed: " + tweetsAnalysed);
             logger.info("Positive COVID-19 Tweets: " + String.format("%.0f", posTweets));
@@ -79,7 +75,6 @@ public class ScoreBolt extends BaseRichBolt {
             logger.info("Positive COVID-19 Tweet Score: " + String.format("%.2f", posTweetScore) + "%");
             logger.info("Negative COVID-19 Tweet Score: " + String.format("%.2f", negTweetScore) + "%");
             
-            //ensures that the logger output is output, but also only output every 60 seconds
             lastLogTime = now;
         }
     }
